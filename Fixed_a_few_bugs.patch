@@ -1,0 +1,90 @@
+Subject: [PATCH] Fixed a few bugs
+---
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision 861d04ed04e7f6bc6dd19fabe68a03d7d754c2cd)
++++ b/src/Main.java	(date 1740683753073)
+@@ -23,8 +23,10 @@
+             switch (userResponse) {
+                 case 1:
+                     System.out.println("What task would you like to add?");
+-                   = input.nextLine();
+-                    yourTasks.add();
++                    String task = input.nextLine();
++                    String description = input.nextLine();
++                    int priority = input.nextInt();
++                    input.nextLine();
+                     break;
+                 case 2:
+                     System.out.println("What task would you like to remove?");
+@@ -41,12 +43,15 @@
+                     reset = input.nextInt();
+                     input.nextLine();
+                     System.out.println("What would you like to replace it with?");
+-                      = input.nextLine();
++                    task = input.nextLine();
++                    description = input.nextLine();
++                    priority = input.nextInt();
++                    input.nextLine();
+                     //reset - 1 so it is simple to choose what task ex: if you want the first task, you would input 1,
+                     //this is subtracted by 1 so that the code will understand exactly what you mean, however
+                     //if you input 0, this will not work.
+                     reset = reset - 1;
+-                    yourTasks.set(reset, );
++                    yourTasks.set(reset, task);
+                     System.out.println(yourTasks.get(reset));
+                     break;
+ 
+@@ -57,7 +62,13 @@
+ 
+                 case 5:
+                     System.out.println("What priority do you wish to view?");
+-
++                    if ((priority > 0) && (priority <= 5)){
++                        for(Task a : yourTasks){
++                            if(a.getPriority()==priority){
++                                System.out.println(a);
++                            }
++                        }
++                    }
+                     break;
+ 
+             }
+@@ -66,4 +77,4 @@
+         }
+     }
+ 
+-}
+\ No newline at end of file
++}
+Index: src/Task.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Task.java b/src/Task.java
+--- a/src/Task.java	(revision 861d04ed04e7f6bc6dd19fabe68a03d7d754c2cd)
++++ b/src/Task.java	(date 1740683753080)
+@@ -32,15 +32,9 @@
+         public void setPriority(int priority) {
+                 this.priority = priority;
+         }
+- //       public void display(){
+- //       }
+ 
+-        @Override
+-        public String toString() {
+-                return "Task{" +
+-                        "task='" + task + '\'' +
+-                        ", description='" + description + '\'' +
+-                        ", priority=" + priority +
+-                        '}';
++        public void display(){
++                System.out.println("");
+         }
++
+ }
