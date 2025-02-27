@@ -23,8 +23,10 @@ public class Main {
             switch (userResponse) {
                 case 1:
                     System.out.println("What task would you like to add?");
-                   = input.nextLine();
-                    yourTasks.add();
+                    String task = input.nextLine();
+                    String description = input.nextLine();
+                    int priority = input.nextInt();
+                    input.nextLine();
                     break;
                 case 2:
                     System.out.println("What task would you like to remove?");
@@ -41,12 +43,15 @@ public class Main {
                     reset = input.nextInt();
                     input.nextLine();
                     System.out.println("What would you like to replace it with?");
-                      = input.nextLine();
+                    task = input.nextLine();
+                    description = input.nextLine();
+                    priority = input.nextInt();
+                    input.nextLine();
                     //reset - 1 so it is simple to choose what task ex: if you want the first task, you would input 1,
                     //this is subtracted by 1 so that the code will understand exactly what you mean, however
                     //if you input 0, this will not work.
                     reset = reset - 1;
-                    yourTasks.set(reset, );
+                    yourTasks.set(reset, task);
                     System.out.println(yourTasks.get(reset));
                     break;
 
@@ -57,7 +62,13 @@ public class Main {
 
                 case 5:
                     System.out.println("What priority do you wish to view?");
-
+                    if ((priority > 0) && (priority <= 5)){
+                        for(Task a : yourTasks){
+                            if(a.getPriority()==priority){
+                                System.out.println(a);
+                            }
+                        }
+                    }
                     break;
 
             }
