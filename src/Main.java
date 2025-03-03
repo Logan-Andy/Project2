@@ -1,80 +1,127 @@
+//Logan Andy 2/28/25 Project 2
 
 import java.util.*;
 
 public class Main {
     static Scanner input = new Scanner(System.in);
+    static ArrayList<Tasks> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
+        options();
+        try {
+            int exit = 0;
+            while (quit == 0) {
+                int userResponse = input.nextInt();
+                input.nextLine();
+                if (userResponse == 1) {
+                    addTask();
+                } else if (userResponse == 2) {
+                    deleteTask();
+                } else if (userResponse == 3) {
+                    updateTask();
+                } else if (userResponse == 4) {
+                    listTasks();
+                } else if (userResponse == 5) {
+                    taskItem();
+                } else if (userResponse == 0) {
+                    exit = 20;
+                } else {
+                    options();
+                    System.out.println("Try again bud, that wasn't a choice.");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
 
-        ArrayList<Task> yourTasks = new ArrayList<>();
-        int userResponse = 8;
-        while (userResponse != 0) {
-            System.out.println("""
-                    Please select an option
-                    [1] Add a task.
-                    [2] Remove a task.
-                    [3] Update a task.
-                    [4] List all tasks.
-                    (0) Exit.
-                    """);
-            System.out.println("What option do you choose?");
-            userResponse = input.nextInt();
-            input.nextLine();
-            switch (userResponse) {
-                case 1:
-                    System.out.println("What task would you like to add?");
-                    String task = input.nextLine();
-                    String description = input.nextLine();
-                    int priority = input.nextInt();
-                    input.nextLine();
-                    break;
-                case 2:
-                    System.out.println("What task would you like to remove?");
-                    System.out.println(yourTasks);
-                    int reset = input.nextInt();
-                    input.nextLine();
-                    reset = reset - 1;
-                    yourTasks.remove(reset);
-                    break;
+    }
 
-                case 3:
-                    System.out.println("What task would you like to update?");
-                    System.out.println(yourTasks);
-                    reset = input.nextInt();
-                    input.nextLine();
-                    System.out.println("What would you like to replace it with?");
-                    task = input.nextLine();
-                    description = input.nextLine();
-                    priority = input.nextInt();
-                    input.nextLine();
-                    //reset - 1 so it is simple to choose what task ex: if you want the first task, you would input 1,
-                    //this is subtracted by 1 so that the code will understand exactly what you mean, however
-                    //if you input 0, this will not work.
-                    reset = reset - 1;
-                    yourTasks.set(reset, task);
-                    System.out.println(yourTasks.get(reset));
-                    break;
 
-                case 4:
-                    System.out.println("Here are your tasks");
-                    System.out.println(yourTasks);
-                    break;
+    static void options() {
+        System.out.println("""
+                Please choose an option:
+                (1) Add a task.
+                (2) Remove a task.
+                (3) Update a task.
+                (4) List all tasks.
+                (5) List # Priority Tasks
+                (0) Exit.
+                """);
+    }
 
-                case 5:
-                    System.out.println("What priority do you wish to view?");
-                    if ((priority > 0) && (priority <= 5)){
-                        for(Task a : yourTasks){
-                            if(a.getPriority()==priority){
-                                System.out.println(a);
-                            }
-                        }
-                    }
-                    break;
+    static void addTask() {
+        System.out.println("What's the name of the task?");
+        String title = input.nextLine();
+        System.out.println("Description of the your task.");
+        String desc = input.nextLine();
+        System.out.println("What Priority is it?(0 lowest and 5 highest)");
+        int prio = input.nextInt();
+        taskList.add(new Tasks(title, desc, prio));
+        options();
+    }
 
+    static void listTasks() {
+        if (taskList.isEmpty()) {
+            System.out.println("No tasks available.)");
+        } else {
+            System.out.println("List of all of your tasks");
+            for (Tasks task : taskList) {
+                System.out.println(task);
+            }
+        }
+        options();
+    }
+
+    static void taskItem() {
+        System.out.println("What priority of tasks do you wish to see?");
+        int prio = input.nextInt();
+        input.nextLine();
+
+        if (prio >= 0 && prio <= 5) {
+            for (Tasks task : taskList) {
+                if (task.getPrio() == prio) {
+                    System.out.println(task);
+                }
             }
 
-
+            options();
         }
     }
 
+    static void deleteTask() {
+        System.out.println("Enter the tasks number to delete:");
+        listTasks();
+        int taskNumber = input.nextInt();
+        input.nextLine();
+
+        if (taskNumber > 0 && taskNumber <= taskList.size()) {
+            taskList.remove(taskNumber - 1);
+            System.out.println("Task removed.");
+        } else {
+            System.out.println("Invalid task number.");
+        }
+        options();
+    }
+
+
+    static void updateTask() {
+        System.out.println("Which task? ");
+        listTasks();
+        int taskNumber = input.nextInt();
+        input.nextLine();
+
+        if (taskNumber > 0 && taskNumber <= taskList.size()) {
+            System.out.println("What's the name of the task?");
+            String title = input.nextLine();
+            System.out.println("Description of the your task.");
+            String desc = input.nextLine();
+            System.out.println("What Priority is it?(0 lowest and 5 highest)");
+            int prio = input.nextInt();
+            taskList.add(new Tasks(title, desc, prio));
+            System.out.println("Task updated successfully.");
+        } else {
+            System.out.println("Invalid task number.");
+        }
+        options();
+    }
 }
