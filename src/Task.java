@@ -1,40 +1,44 @@
-class Task {
-        private String task;
-        private String description;
-        private int priority;
+public class Tasks {
+    private String title;
+    private String desc;
+    private int prio;
 
-        public Task(String task, String description, int priority) {
-                this.task = task;
-                this.description = description;
-                this.priority = priority;
-        }
+    public Tasks(String title, String desc, int prio) {
+        this.title = title;
+        this.desc = desc;
+        this.prio = prio;
+    }
 
-        public String getTask() {
-                return task;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public void setTask(String task) {
-                this.task = task;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public String getDescription() {
-                return description;
-        }
+    public String getDesc() {
+        return desc;
+    }
 
-        public void setDescription(String description) {
-                this.description = description;
-        }
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
-        public int getPriority() {
-                return priority;
-        }
+    public int getPrio() {
+        return prio;
+    }
 
-        public void setPriority(int priority) {
-                this.priority = priority;
-        }
+    public void setPrio(int prio) {
+        this.prio = prio;
+    }
 
-        public void display(){
-                System.out.println("");
-        }
-
+    @Override
+    public String toString() {
+        return "Tasks{" +
+                "title='" + title + '\'' +
+                ", desc='" + desc + '\'' +
+                ", prio=" + prio +
+                '}';
+    }
 }
