@@ -10,7 +10,7 @@ public class Main {
         options();
         try {
             int exit = 0;
-            while (quit == 0) {
+            while (exit == 0) {
                 int userResponse = input.nextInt();
                 input.nextLine();
                 if (userResponse == 1) {
